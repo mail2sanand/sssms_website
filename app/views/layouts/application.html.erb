@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sssmh</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>    
+
+    <!-- header Menu URL -->
+	<!-- https://www.littlesnippets.net/blog/some-css-menu-inspiration-using-animated-lines -->
+
+	<script type="text/javascript">
+		function change_sub_menu_highlight(){
+			// alert("=========");
+			var page_loaded = $(location).attr('pathname').replace(/\//,'');
+			$('#sub_menu_div').find('a').each(function(){
+				if($(this).attr('id') == page_loaded){
+					$(this).parent().addClass("current");
+				}
+			})
+		}
+
+		function load_page(page_to_load){
+			$(location).attr('href',page_to_load);
+		}
+	</script>
+
+  </head>
+
+  <body class="body_css" onload="change_sub_menu_highlight();">
+  	<div style="width: 100%;" align="center">
+  		<div style="width: 80%" align="center">
+		  	<header">
+		  		<img src="/assets/header.png">
+
+		  		<div style="border-bottom: 1px dotted;height: 50px;z-index: 10;border-radius:20px">
+			  		<div style="float: right; padding-top: 10px;" id="sub_menu_div">
+						<ul class="snip1135">
+						  <!-- <li class="current"> -->
+						  <li>
+						  	<a id='about_us' onclick="load_page('/about_us')" href="#" data-hover="About Us">About Us</a>
+						  </li>
+						  <li><a id='services' onclick="load_page('/services')"  href="#" data-hover="Services">Services</a></li>
+
+						  <li><a id='gallery' onclick="load_page('/gallery')" href="#" data-hover="Gallery">Gallery</a></li>
+
+						  <li><a id='statistics' onclick="load_page('/statistics')" href="#" data-hover="Statistics">Statistics</a></li>
+
+						  <!-- <li><a id='news_and_events' onclick="load_page('/news_and_events')"  href="#" data-hover="News and Events">News and Events</a></li> -->
+
+						  <li><a id='contact' onclick="load_page('/contact')" href="#" data-hover="Contact">Contact</a></li>
+						</ul>
+			  		</div>
+		  		</div>
+		  	</header>
+
+			<div style="text-align: justify;">&nbsp;</div>
+
+			<div class="main_div_class" align="left">
+			    <%= yield %>
+		    </div>
+  		</div>
+	    <footer>
+	  		<div align="center" class="footer_parent">
+		    	<div class="footer_class" style="padding-bottom: 15px;">
+			  		<div style="float: right;">
+			  			Copyright © <%= Time.current.year %> Sri Sathya Sai Central Trust
+			  		</div>
+				</div>
+			</div>
+	    </footer>
+
+   </div>
+  </body>
+</html>

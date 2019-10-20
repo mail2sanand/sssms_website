@@ -1,0 +1,148 @@
+
+/* CSS for the Sub Menu */
+  @import url(https://fonts.googleapis.com/css?family=Raleway:400,500,800);
+  .snip1135 {
+    font-family: 'Raleway', Arial, sans-serif;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .snip1135 * {
+    box-sizing: border-box;
+  }
+  .snip1135 li {
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 1.5em;
+    padding: 0;
+  }
+  .snip1135 a {
+    padding: 0.5em 0;
+    color: #71787d;
+    position: relative;
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+  .snip1135 a:before,
+  .snip1135 a:after {
+    position: absolute;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+  }
+  .snip1135 a:before {
+    bottom: 0;
+    display: block;
+    height: 3px;
+    width: 0%;
+    content: "";
+    background-color: #b9babb;
+  }
+  .snip1135 a:after {
+    left: 0;
+    top: 0;
+    padding: 0.5em 0;
+    position: absolute;
+    content: attr(data-hover);
+    color: #71787d;
+    white-space: nowrap;
+    max-width: 0%;
+    overflow: hidden;
+  }
+  .snip1135 a:hover:before,
+  .snip1135 .current a:before {
+    opacity: 1;
+    width: 100%;
+  }
+  .snip1135 a:hover:after,
+  .snip1135 .current a:after {
+    max-width: 100%;
+    color: #d24904;
+  }
+/* END OF CSS for the Sub Menu */
+
+/* CSS for different body font styles*/
+.site_content{
+    font-family: 'Josefin Slab',Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
+    font-size: 17px;
+    line-height: 175%;
+    text-align: justify;
+    color: #546372;
+  }
+/* END OF CSS for different body font styles*/
+
+
+.main-side-heading {
+    text-align: justify; 
+    font-size: 28px; 
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+
+.small-side-heading {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: justify;
+}
+
+.table100.ver1 th {
+    font-family: Montserrat-Medium;
+    font-size: 16px;
+    color: #fff;
+    line-height: 1.4;
+    text-transform: uppercase;
+    background-color: #36304a;
+}
+
+.table100.ver1 td {
+    font-family: Montserrat-Regular;
+    font-size: 16px;
+    color: #808080;
+    line-height: 1.4;
+    font-weight: bold;
+}
+
+table.stats_table th.stats_table, td.stats_table {
+  border-collapse: collapse;
+  border: 0px;
+}
+
+table.stats_table{
+  border-radius: 10px;
+  text-align: center;
+}
+
+.big_and_bold {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.stats_table_left{
+  border-top-left-radius: 10px;
+}
+
+.stats_table_right{
+  border-top-right-radius: 10px;
+}
+
+table {
+  /*border-collapse: collapse;*/
+}
+
+table, th, td {
+  font-size: 15px; 
+  border: 1px dotted ;
+}
+
+tr.heading_row {
+  font-weight: bold; 
+  background-color: #987876; 
+  border-color: #ffffff;
+}
+
+th.heading_row {
+  border-color: #ffffff; 
+  color: #ffffff; 
+  text-align: center; 
+  vertical-align: middle;
+  border-radius: 5px;
+}
