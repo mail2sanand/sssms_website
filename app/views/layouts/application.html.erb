@@ -12,12 +12,14 @@
 
 	<script type="text/javascript">
 		function change_sub_menu_highlight(){
-			// alert("=========");
 			var page_loaded = $(location).attr('pathname').replace(/\//,'');
 			$('#sub_menu_div').find('a').each(function(){
-				if($(this).attr('id') == page_loaded){
+				if(page_loaded==''){
+					$('#about_us').parent().addClass("current");
+				}else if($(this).attr('id') == page_loaded){
 					$(this).parent().addClass("current");
 				}
+
 			})
 		}
 
