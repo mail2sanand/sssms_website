@@ -146,3 +146,42 @@ th.heading_row {
   vertical-align: middle;
   border-radius: 5px;
 }
+
+.input_stats{
+  padding: 0 10px 10px 15px;
+  font-size: 15px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #dbf1e9;
+}
+
+.input_login{
+  margin-top: 5px;
+  padding: 0 10px 10px 15px;
+  font-size: 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.save_button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+
+
+
+
+
+
+

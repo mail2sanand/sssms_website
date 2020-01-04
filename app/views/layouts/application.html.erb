@@ -7,10 +7,28 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>    
 
-    <!-- header Menu URL -->
-	<!-- https://www.littlesnippets.net/blog/some-css-menu-inspiration-using-animated-lines -->
+    <%= yield :head %>
 
 	<script type="text/javascript">
+
+	    $(document).ready(function() {
+	        $.fn.serializeFormJSON = function () {
+	            var o = {};
+	            var a = this.serializeArray();
+	            $.each(a, function () {
+	                if (o[this.name]) {
+	                    if (!o[this.name].push) {
+	                        o[this.name] = [o[this.name]];
+	                    }
+	                    o[this.name].push(this.value || '');
+	                } else {
+	                    o[this.name] = this.value || '';
+	                }
+	            });
+	            return o;
+	        };
+	    });
+
 		function change_sub_menu_highlight(){
 			var page_loaded = $(location).attr('pathname').replace(/\//,'');
 			$('#sub_menu_div').find('a').each(function(){
@@ -31,6 +49,9 @@
   </head>
 
   <body class="body_css" onload="change_sub_menu_highlight();">
+
+    <%= yield :scripts %>
+
   	<div style="width: 100%;" align="center">
   		<div style="width: 80%" align="center">
 		  	<header">
@@ -49,12 +70,22 @@
 
 						  <li><a id='statistics' onclick="load_page('/statistics')" href="#" data-hover="Statistics">Statistics</a></li>
 
-						  <!-- <li><a id='news_and_events' onclick="load_page('/news_and_events')"  href="#" data-hover="News and Events">News and Events</a></li> -->
-
 						  <li><a id='contact' onclick="load_page('/contact')" href="#" data-hover="Contact">Contact</a></li>
+
+						  <% if user_signed_in? %>
+							  <li><a id='backend' onclick="load_page('/backend')"  href="#" data-hover="MH Backend">MH Backend</a></li>
+						  <% end %>
+
 						</ul>
 			  		</div>
 		  		</div>
+		  		<div style="float: right;padding-top: 10px;">
+					<% if user_signed_in? %>
+					  Logged In : <strong><%= current_user.email %></strong> | 
+					  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+					<% end %>
+		  		</div>
+
 		  	</header>
 
 			<div style="text-align: justify;">&nbsp;</div>
