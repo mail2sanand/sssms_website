@@ -1,95 +1,251 @@
+<script type="text/javascript">
+
+    function save_stats(){
+        
+        var sssmh_stats_data = $('#sssmh_stats').serializeFormJSON();
+
+        $.ajax({
+		  type: "POST",
+		  url: "change_stats",
+		  data: sssmh_stats_data,
+		  success: function(return_data){
+		  	console.log(return_data);
+		  },
+		  dataType:"json"
+		});
+    }
+        
+</script>
+
 <div class="site_content" style="width: 100%;" onload="change_sub_menu_highlight()">
-	<div class="main-side-heading">
-		Cumulative Statistics (March 2006 – December 2019)
-	</div>
-
-	<div id=no_of_patients_served style="border: 0px solid">
-		<div class="small-side-heading" style="padding-top: 15px;">Number of Patients Served</div>
-
-		<div style="width: 100%;border: 0px solid;height: 180px;" align="center">
-			<div class="table100 ver1 m-b-110" style="width: 80%;">
-
-				<div style="padding-top: 10px;"></div>
-
-				<table data-vertable="ver1" class="stats_table">
-				<thead>
-				<tr class="row100 head">
-				<th class="stats_table_left big_and_bold" data-column="column2">Male</th>
-				<th class="column100 column3 stats_table big_and_bold" data-column="column3">Female</th>
-				<th class="column100 column4 stats_table big_and_bold" data-column="column4">Children</th>
-				<th class="column100 column8 stats_table_right big_and_bold" data-column="column8" style="background-color: #c45700">Total</th>
-				</tr>
-				</thead>
-				<tbody>
-				<tr class="row100">
-				<td class="column100 column2 stats_table" data-column="column2">3,79,315</td>
-				<td class="column100 column3 stats_table" data-column="column3">6,15,682</td>
-				<td class="column100 column4 stats_table" data-column="column4">1,39,715</td>
-				<td class="column100 column5 stats_table " data-column="column5">11,34,712</td>
-				</tr>
-				</tbody>
-				</table>
-			</div>
+	<form id="sssmh_stats" name="sssmhms_stats">
+		<div class="main-side-heading">
+			<% if user_signed_in? %>
+				<div>
+					<div style="float: left;">
+						Cumulative Statistics (   
+					</div>
+					<div style="padding-left:10px;float: left;width: 33%">
+						<table data-vertable="ver1" style="width: 40%;border: 0px;"><tr><td style="width: 20%;border: 0px;">
+							<input size="20" class="input_stats" id="stats_from" type="text" placeholder="January 1995" name="stats_from" value="<%=@stats['stats_from']%>"/>
+						</td><td style="width: 5%;border: 0px;"> - </td>
+						<td style="width: 20%;border: 0px;">
+							<input size="20" class="input_stats" id="stats_to" type="text" placeholder="December 1995" name="stats_to" value="<%=@stats['stats_to']%>"/>
+						</td></tr></table> 
+					</div>
+					<div style="float: left;">
+						)
+					</div>
+				</div>
+			<%else%>
+				Cumulative Statistics (<%=@stats['stats_from']%> – <%=@stats['stats_to']%>)
+			<%end%>
 		</div>
-	</div>
 
-	<div id=distribution_of_patients>
-		<div class="small-side-heading">Distribution of Patients</div>
+		<% if user_signed_in? %>
+			<div style="float: right;">
+				<button class="save_button" onclick="save_stats();">
+					Save Stats
+				</button>
+			</div>
+		<%end%>
 
-		<div style="width: 100%;height: 180px;" align="center">
-			<div class="table100 ver1 m-b-110" style="width: 60%;">
-				<div style="padding-top: 10px;"></div>
+		<div id=no_of_patients_served style="border: 0px solid">
+			<div class="small-side-heading" style="padding-top: 35px;">Number of Patients Served</div>
+
+			<div style="width: 100%;border: 0px solid;height: 180px;" align="center">
+				<div class="table100 ver1 m-b-110" style="width: 80%;">
+
+					<div style="padding-top: 10px;"></div>
+
 					<table data-vertable="ver1" class="stats_table">
-						<thead>
-							<tr class="row100 head">
-							<th class="stats_table_left big_and_bold" data-column="column2">Male</th>
-							<th class="stats_table big_and_bold" data-column="column3">Female</th>
-							<th class="stats_table_right big_and_bold" data-column="column4">Children</th>
-						</thead>
-						<tbody>
-							<tr class="row100">
-							<td class="column100 column2 stats_table" data-column="column2">33%</td>
-							<td class="column100 column3 stats_table" data-column="column3">54%</td>
-							<td class="column100 column4 stats_table" data-column="column4">13%</td>
-							</tr>
-						</tbody>
+					<thead>
+					<tr class="row100 head">
+					<th class="stats_table_left big_and_bold" data-column="column2">Male</th>
+					<th class="column100 column3 stats_table big_and_bold" data-column="column3">Female</th>
+					<th class="column100 column4 stats_table big_and_bold" data-column="column4">Children</th>
+					<th class="column100 column8 stats_table_right big_and_bold" data-column="column8" style="background-color: #c45700">Total</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr class="row100">
+						<td class="column100 column2 stats_table" data-column="column2">
+							<div align="center" style="border: 0px solid black;">
+								<% if user_signed_in? %>
+							      <input size="20" class="input_stats"
+							      	id="number_of_patients_served_male" type="number" placeholder="# of Male :" name="number_of_patients_served[male]" value="<%=@stats['number_of_patients_served']['male']%>"/>
+								<% else %>
+									<%=number_to_indian_currency(@stats['number_of_patients_served']['male'].to_i)%>
+								<%end%>
+							</div>
+						</td>
+						<td class="column100 column3 stats_table" data-column="column3">
+							<% if user_signed_in? %>
+						      <input id="number_of_patients_served_female" class="input_stats" type="number" placeholder="# Of Female :" name="number_of_patients_served[female]" value="<%=@stats['number_of_patients_served']['female']%>"/>
+							<% else %>
+								<%=number_to_indian_currency(@stats['number_of_patients_served']['female'].to_i)%>
+							<%end%>
+						</td>
+						<td class="column100 column4 stats_table" data-column="column4">
+							<% if user_signed_in? %>
+						      <input id="number_of_patients_served_children" class="input_stats" type="number" placeholder="# Of Children :" name="number_of_patients_served[children]" value="<%=@stats['number_of_patients_served']['children']%>"/>
+							<% else %>
+								<%=number_to_indian_currency(@stats['number_of_patients_served']['children'].to_i)%>
+							<%end%>
+						</td>
+						<td class="column100 column5 stats_table " data-column="column5">
+							<%=number_to_indian_currency(
+								@stats['number_of_patients_served']['children'].to_i + 
+								@stats['number_of_patients_served']['male'].to_i + 
+								@stats['number_of_patients_served']['female'].to_i)
+							%>
+						</td>
+					</tr>
+					</tbody>
 					</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
+		<div id=distribution_of_patients>
+			<div class="small-side-heading">Distribution of Patients</div>
 
-	<div id=diagnostic_procedurted_performed>
-		<div class="small-side-heading">Diagnostic Procedures Performed</div>
-
-		<div style="width: 100%;height: 180px;" align="center">
-			<div class="table100 ver1 m-b-110" style="width: 80%;">
-
-				<div style="padding-top: 10px;"></div>
-
-				<table data-vertable="ver1" class="stats_table">
-				<thead>
-				<tr class="row100 head">
-				<th class="stats_table_left big_and_bold" data-column="column2">X-rays</th>
-				<th class="stats_table big_and_bold" data-column="column3">Ultrasound</th>
-				<th class="stats_table big_and_bold" data-column="column3">ECG</th>
-				<th class="stats_table big_and_bold" data-column="column3">Echo</th>
-				<th class="stats_table_right big_and_bold" data-column="column4">Pathology and Bio-Chemistry Investigations</th>
-				</thead>
-				<tbody>
-				<tr class="row100">
-				<td class="column100 column2 stats_table" data-column="column2">29,323</td>
-				<td class="column100 column3 stats_table" data-column="column3">37,823 </td>
-				<td class="column100 column4 stats_table" data-column="column4">12,467</td>
-				<td class="column100 column4 stats_table" data-column="column4">2,516</td>
-				<td class="column100 column4 stats_table" data-column="column4">2,79,200</td>
-				</tr>
-				</tbody>
-				</table>
+			<div style="width: 100%;height: 180px;" align="center">
+				<div class="table100 ver1 m-b-110" style="width: 60%;">
+					<div style="padding-top: 10px;"></div>
+						<table data-vertable="ver1" class="stats_table">
+							<thead>
+								<tr class="row100 head">
+								<th class="stats_table_left big_and_bold" data-column="column2">Male</th>
+								<th class="stats_table big_and_bold" data-column="column3">Female</th>
+								<th class="stats_table_right big_and_bold" data-column="column4">Children</th>
+							</thead>
+							<tbody>
+								<tr class="row100">
+								<td class="column100 column2 stats_table" data-column="column2">
+									<% if user_signed_in? %>
+								      <input id="distribution_of_patients_male" class="input_stats" type="text" placeholder="% Of Male :" name="distribution_of_patients[male]" value="<%=@stats['distribution_of_patients']['male']%>"/>
+									<% else %>
+										<%=@stats['distribution_of_patients']['male']%>
+									<%end%>
+								</td>
+								<td class="column100 column3 stats_table" data-column="column3">
+									<% if user_signed_in? %>
+								      <input id="distribution_of_patients_female" class="input_stats" type="text" placeholder="% Of Female :" name="distribution_of_patients[female]" value="<%=@stats['distribution_of_patients']['female']%>"/>
+									<% else %>
+										<%=@stats['distribution_of_patients']['female']%>
+									<%end%>
+								</td>
+								<td class="column100 column4 stats_table" data-column="column4">
+									<% if user_signed_in? %>
+								      <input id="distribution_of_patients_children" class="input_stats" type="text" placeholder="% Of Children :" name="distribution_of_patients[children]" value="<%=@stats['distribution_of_patients']['children']%>"/>
+									<% else %>
+										<%=@stats['distribution_of_patients']['children']%>
+									<%end%>
+								</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="small-side-heading" style="padding-top: 22px;"> Patients from <span style="color: #c45800;">440</span> villages drawn from about <span style="color: #c45800;">30 – 35</span> mandals in Anantapur District of Andhra Pradesh have been beneficiaries of the services being provided by the mobile hospital.</div>
+
+		<div id=diagnostic_procedurted_performed>
+			<div class="small-side-heading">Diagnostic Procedures Performed</div>
+
+			<div style="width: 100%;height: 180px;" align="center">
+				<div class="table100 ver1 m-b-110" style="width: 80%;">
+
+					<div style="padding-top: 10px;"></div>
+
+					<table data-vertable="ver1" class="stats_table">
+					<thead>
+					<tr class="row100 head">
+					<th class="stats_table_left big_and_bold" data-column="column2">X-rays</th>
+					<th class="stats_table big_and_bold" data-column="column3">Ultrasound</th>
+					<th class="stats_table big_and_bold" data-column="column3">ECG</th>
+					<th class="stats_table big_and_bold" data-column="column3">Echo</th>
+					<th class="stats_table_right big_and_bold" data-column="column4">Pathology and Bio-Chemistry Investigations</th>
+					</thead>
+					<tbody>
+					<tr class="row100">
+					<td class="column100 column2 stats_table" data-column="column2">
+						<% if user_signed_in? %>
+					      <input id="diagnostic_procedures_performed_xray" class="input_stats" type="number" placeholder="# Of X-Rays :" name="diagnostic_procedures_performed[xray]" value="<%=@stats['diagnostic_procedures_performed']['xray']%>"/>
+						<% else %>
+							<%=number_to_indian_currency(@stats['diagnostic_procedures_performed']['xray'].to_i)%>
+						<%end%>
+					</td>
+					<td class="column100 column3 stats_table" data-column="column3">
+						<% if user_signed_in? %>
+					      <input id="diagnostic_procedures_performed_ultrasound" class="input_stats" type="number" placeholder="# Of Ultrasound :" name="diagnostic_procedures_performed[ultrasound]" value="<%=@stats['diagnostic_procedures_performed']['ultrasound']%>"/>
+						<% else %>
+							<%=number_to_indian_currency(@stats['diagnostic_procedures_performed']['ultrasound'].to_i)%> 
+						<%end%>					
+					</td>
+					<td class="column100 column4 stats_table" data-column="column4">
+						<% if user_signed_in? %>
+					      <input id="diagnostic_procedures_performed_ecg" class="input_stats" type="number" placeholder="# Of ECG :" name="diagnostic_procedures_performed[ecg]" value="<%=@stats['diagnostic_procedures_performed']['ecg']%>"/>
+						<% else %>
+							<%=number_to_indian_currency(@stats['diagnostic_procedures_performed']['ecg'].to_i)%>
+						<%end%>										
+					</td>
+					<td class="column100 column4 stats_table" data-column="column4">
+						<% if user_signed_in? %>
+					      <input id="diagnostic_procedures_performed_echo" class="input_stats" type="number" placeholder="# Of Echo :" name="diagnostic_procedures_performed[echo]" value="<%=@stats['diagnostic_procedures_performed']['echo']%>"/>
+						<% else %>
+							<%=number_to_indian_currency(@stats['diagnostic_procedures_performed']['echo'].to_i)%>
+						<%end%>
+					</td>
+					<td class="column100 column4 stats_table" data-column="column4">
+						<% if user_signed_in? %>
+					      <input id="diagnostic_procedures_performed_bio_chem_inv" class="input_stats" type="number" placeholder="# Of Bio-Chem Investigations :" name="diagnostic_procedures_performed[bio_chem_inv]" value="<%=@stats['diagnostic_procedures_performed']['bio_chem_inv']%>"/>
+						<% else %>
+							<%=number_to_indian_currency(@stats['diagnostic_procedures_performed']['bio_chem_inv'].to_i)%>
+						<%end%>											
+					</td>
+					</tr>
+					</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="small-side-heading" style="padding-top: 22px;"> 
+			<% if user_signed_in? %>
+				<div style="margin-top: 10px;height: 70px;">
+					<div style="float: left;">
+						Patients from 
+					</div>
+					<div style="padding:10px 10px;float: left;">
+						<input size="20" class="input_stats" id="no_of_villages" type="text" placeholder="# of villages" name="no_of_villages" value="<%=@stats['no_of_villages']%>"/>
+					</div>
+					<div style="float: left;">
+						villages drawn from about 
+					</div>
+					<div style="padding:10px 10px;float: left;">
+						<input size="20" class="input_stats" id="no_of_mandals" type="text" placeholder="# of mandals" name="no_of_mandals" value="<%=@stats['no_of_mandals']%>"/>
+					</div>
+					<div style="float: left;">
+						mandals in Anantapur District of Andhra Pradesh have been beneficiaries of the services being provided by the mobile hospital.
+					</div>
+				</div>
+			<%else%>		
+				Patients from <span style="color: #c45800;"><%=@stats['no_of_villages']%></span> villages drawn from about <span style="color: #c45800;"><%=@stats['no_of_mandals']%></span> mandals in Anantapur District of Andhra Pradesh have been beneficiaries of the services being provided by the mobile hospital.
+			<%end%>
+		</div>
+
+	</form>
 
 </div> 
+
+
+
+
+
+
+
+
+
+
