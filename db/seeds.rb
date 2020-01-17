@@ -18,7 +18,8 @@ User.create([
   {:email=>"mail2sanand@gmail.com",
    :password=>"sairam",
    :password_confirmation=>"sairam"
-  }
+  },
+  {:email=>"jai.ehis@gmail.com", :password=>"JaiSaiRam.SSSMH@2006", :password_confirmation=>"JaiSaiRam.SSSMH@2006"}
 ])
 
 Stat.create({
