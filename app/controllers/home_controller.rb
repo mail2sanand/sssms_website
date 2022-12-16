@@ -8,4 +8,5 @@ class HomeController < ApplicationController
 	end
 	def news_and_events; end	
 	def contact; end	
+	def impact; end	
 end
