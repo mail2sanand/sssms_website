@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   	get :about_us, action: 'about_us'
   	get :services, action: 'services'
   	get :gallery, action: 'gallery'
+  	get :impact, action: 'impact'
   	get :statistics, action: 'statistics'
   	get :news_and_events, action: 'news_and_events'
   	get :contact, action: 'contact'
